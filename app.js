@@ -1,12 +1,29 @@
-var app = angular.module('testApp', []);
-app.controller("testController", ['$scope', function($scope) {
-  var self = this;
-  this.fontStyle = {};
-  this.backgroundStyle = {};
-  this.textLocation = "1";
+(function() {
 
-  this.setFile = function(element) {
-    this.currentFile = element.files[0];
+  'use strict';
+  angular.module('testApp', [])
+
+  angular.element(document).ready(function() {
+    angular.bootstrap(document, ['testApp']);
+  })
+
+})();
+
+angular.module('testApp')
+  .controller('testController', testController)
+  .directive('customDirective', customDirective)
+  .directive('uploadImage', uploadImage);
+testController.$inject = ['$scope'];
+uploadImage.$inject = ['$timeout']
+
+function testController($scope) {
+  var self = this;
+  self.fontStyle = {};
+  self.backgroundStyle = {};
+  self.textLocation = "1";
+
+  self.setFile = function(element) {
+    self.currentFile = element.files[0];
     var reader = new FileReader();
 
     reader.onload = function(event) {
@@ -17,11 +34,11 @@ app.controller("testController", ['$scope', function($scope) {
       // when the file is read it triggers the onload event above.
     reader.readAsDataURL(element.files[0]);
   }
-}]);
+};
 
 // directive
 
-app.directive('customDirective', [function() {
+function customDirective() {
   return {
     restrict:'E',
     scope: {
@@ -43,9 +60,9 @@ app.directive('customDirective', [function() {
     '</div>'+
   '</div>'
   };
-}]);
+}
 
-app.directive('uploadImage', ['$timeout', function($timeout) {
+function uploadImage($timeout) {
   return {
     restrict: 'E',
     scope: {
@@ -62,4 +79,4 @@ app.directive('uploadImage', ['$timeout', function($timeout) {
         '<input type="file" id="trigger" style="display:none" onchange="angular.element(this).scope().setFile(this)" accept="image/*">' +
       '</div>'
   }
-}])
+}
