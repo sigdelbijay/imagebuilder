@@ -11,7 +11,6 @@
       -webkit-transform: translateY(-50%) translateX(-50%);
       width: 63%;
     }
-
     .contentDiv {
       position: relative; left: 0; top: 0;
     }
@@ -22,22 +21,13 @@
     <div class="col-md-2"></div>
     <!-- Preview Part -->
 
-    <div class="col-md-4">
+    <div class="col-md-4" id="testDiv">
       <custom-directive caption="test.caption", text-location="test.textLocation", font-style="test.fontStyle" background-style="test.backgroundStyle" image-source="imageSource">
     </div>
-      <!-- <div class="col-md-4">
-        <div class="text-center" style="position: relative; left: 0; top: 0;">
-          <p class="text-center">{{test.caption}}</p>
-          <img src="iphone.png" alt="" width="75%" style="position: relative; top: 0; left: 0;">
-          <img ng-src="{{image_source}}" alt="" class="myStyle">
-          <p class="text-center">{{test.caption}}</p>
-          <div class="clearfix"></div>
-        </div>
-      </div> -->
-      <!-- Control part -->
-      <div class="col-md-6">
-        <form>
-          <upload-image set-file="test.setFile"></upload-image>
+    <!-- Control part -->
+    <div class="col-md-6">
+      <form>
+        <upload-image set-file="test.setFile"></upload-image>
           <!-- <button class="btn btn-default" ng-click="test.triggerClick()">Upload Image</button>
           <input type="file" id="trigger" style="display:none" onchange="angular.element(this).scope().setFile(this)" accept="image/*"> -->
           <hr>
@@ -97,21 +87,36 @@
           <div class="row">
            <div class="col-md-3">
             <select name="background-color" id="background-color" class="form-control" ng-model="test.backgroundStyle['background-color']">
-                <option selected disabled value=''> Background Color </option>
+              <option selected disabled value=''> Background Color </option>
               <option value="Red">Red</option>
               <option value="Black">Black</option>
             </select>
           </div>
+          <button class="btn-default" id="download">Download</button>
           <hr>
         </div>
       </form>
     </div>
   </div>
 
-
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="html2canvas.js"></script>
   <script src="angular.js"></script>
   <script src="app.js"></script>
   <script src="controller.js"></script>
   <script src="directive.js"></script>
+  <script>
+    $( document ).ready(function() {
+      $('#download').click(function(){
+        html2canvas($("#testDiv"), {
+          logging: true,
+          onrendered: function(canvas) {
+            var myImage = canvas.toDataURL("image/png");
+            window.open(myImage);
+          }
+        });
+      })
+    });
+  </script>
 </body>
 </html>
