@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Builder</title>
+  <link rel="stylesheet" href="bootstrap.css">
+  <style>
+    .myStyle {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      -webkit-transform: translateY(-50%) translateX(-50%);
+      width: 63%;
+    }
+
+    .contentDiv {
+      position: relative; left: 0; top: 0;
+    }
+  </style>
+</head>
+<body ng-app="testApp" ng-controller="testController as test">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <!-- Preview Part -->
+
+    <div class="col-md-4">
+      <custom-directive caption="test.caption", text-location="test.textLocation", font-style="test.fontStyle" background-style="test.backgroundStyle" image-source="imageSource">
+    </div>
+      <!-- <div class="col-md-4">
+        <div class="text-center" style="position: relative; left: 0; top: 0;">
+          <p class="text-center">{{test.caption}}</p>
+          <img src="iphone.png" alt="" width="75%" style="position: relative; top: 0; left: 0;">
+          <img ng-src="{{image_source}}" alt="" class="myStyle">
+          <p class="text-center">{{test.caption}}</p>
+          <div class="clearfix"></div>
+        </div>
+      </div> -->
+      <!-- Control part -->
+      <div class="col-md-6">
+        <form>
+          <upload-image set-file="test.setFile"></upload-image>
+          <!-- <button class="btn btn-default" ng-click="test.triggerClick()">Upload Image</button>
+          <input type="file" id="trigger" style="display:none" onchange="angular.element(this).scope().setFile(this)" accept="image/*"> -->
+          <hr>
+          <div class="form-group">
+            <label for="caption">Caption</label>
+            <input type="text" class="form-control" id="caption" placeholder="Caption" ng-model="test.caption">
+          </div>
+          <div>
+            <p>Layout</p>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <select name="text-location" id="text-location" class="form-control" ng-model="test.textLocation">
+                <option value="1">Text Above</option>
+                <option value="2">Text Below</option>
+              </select>
+            </div>
+          </div>
+          <hr>
+          <div>
+            <p>Font</p>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <select name="font-style" id="font-style" class="form-control" ng-model="test.fontStyle['font-family']">
+                <option selected disabled value=''> Font Name </option>
+                <option value="sans-serif">Sans-Serif</option>
+                <option value="monospace">monospace</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <select name="font-size" id="font-size" class="form-control" ng-model="test.fontStyle['font-size']">
+                <option selected disabled value=''> Font Size </option>
+                <option value="10px">10</option>
+                <option value="20px">20</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <select name="font-weight" id="font-weight" class="form-control" ng-model="test.fontStyle['font-weight']">
+                <option selected disabled value=''> Font Weight </option>
+                <option value="Bold">Bold</option>
+                <option value="normal">Normal</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <select name="font-color" id="font-color" class="form-control" ng-model="test.fontStyle['color']">
+                <option selected disabled value=''> Font Color </option>
+                <option value="Red">Red</option>
+                <option value="Black">Black</option>
+              </select>
+            </div>
+          </div>
+          <hr>
+          <p>
+            Background
+          </p>
+          <div class="row">
+           <div class="col-md-3">
+            <select name="background-color" id="background-color" class="form-control" ng-model="test.backgroundStyle['background-color']">
+                <option selected disabled value=''> Background Color </option>
+              <option value="Red">Red</option>
+              <option value="Black">Black</option>
+            </select>
+          </div>
+          <hr>
+        </div>
+
+        <button type="submit" class="btn btn-default" ng-click="test.printImage()">Submit</button>
+      </form>
+    </div>
+  </div>
+
+
+  <script src="angular.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
